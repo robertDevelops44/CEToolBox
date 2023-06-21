@@ -4,7 +4,7 @@ import org.openqa.selenium.WebElement;
 
 public class PPLTool {
 
-    public void loginAccount(WebDriver driver, String username, String password) {
+    public static void loginAccount(WebDriver driver, String username, String password) {
         /*
         * Logs into PPL Supplier Portal with given login details(username, password)
         */
@@ -16,6 +16,7 @@ public class PPLTool {
         WebElement passwordInput = driver.findElement(By.id("MainContent_LoginCtrl_Password"));
         WebElement loginButton = driver.findElement(By.id("MainContent_LoginCtrl_LoginButton"));
 
+        // login
         userNameInput.sendKeys(username);
         passwordInput.sendKeys(password);
         loginButton.click();
