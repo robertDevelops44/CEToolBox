@@ -43,9 +43,23 @@ public class PPLTool {
 
     }
 
+    public static void downloadUsageFile(WebDriver driver) {
+        /*
+        * downloads excel file containing account monthly usage data
+        * pre req: page must be displaying all usage data - execute retrieveAccountData prior to exporting data
+        */
+
+        WebElement exportToExcel = driver.findElement(By.id("MainContent_repMUData_btnExport_0"));
+        exportToExcel.click();
+
+    }
+
     public static void main(String[] args) {
-        String loginUsername = "CBergerCE1";
-        String loginPassword = "ces10038!";
+        /*
+        * FOR TESTING PURPOSES ONLY
+        */
+        String loginUsername = "XXXX";
+        String loginPassword = "xxxx";
 
         String accountNumber = "2087098013";
 
@@ -53,6 +67,7 @@ public class PPLTool {
 
         loginAccount(driver, loginUsername, loginPassword);
         retrieveAccountData(driver, accountNumber);
+        downloadUsageFile(driver);
     }
 
 }
