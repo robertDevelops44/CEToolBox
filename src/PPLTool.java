@@ -5,52 +5,84 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class PPLTool {
 
-    public static void loginAccount(WebDriver driver, String username, String password) {
+    public static boolean loginAccount(WebDriver driver, String username, String password) {
         /*
         * Logs into PPL Supplier Portal with given login details(username, password)
         */
+        try {
+            // direct to login page
+            String loginURL = "https://supplier.prod.pplweb.com/eusupplierportal/login.aspx";
+            driver.get("https://supplier.prod.pplweb.com/eusupplierportal/login.aspx");
 
-        // direct to login page
-        driver.get("https://supplier.prod.pplweb.com/eusupplierportal/login.aspx");
+            WebElement userNameInput = driver.findElement(By.id("MainContent_LoginCtrl_UserName"));
+            WebElement passwordInput = driver.findElement(By.id("MainContent_LoginCtrl_Password"));
+            WebElement loginButton = driver.findElement(By.id("MainContent_LoginCtrl_LoginButton"));
 
-        WebElement userNameInput = driver.findElement(By.id("MainContent_LoginCtrl_UserName"));
-        WebElement passwordInput = driver.findElement(By.id("MainContent_LoginCtrl_Password"));
-        WebElement loginButton = driver.findElement(By.id("MainContent_LoginCtrl_LoginButton"));
+            // login
+            userNameInput.sendKeys(username);
+            passwordInput.sendKeys(password);
+            loginButton.click();
 
-        // login
-        userNameInput.sendKeys(username);
-        passwordInput.sendKeys(password);
-        loginButton.click();
+            String currentURL = driver.getCurrentUrl();
+            if (currentURL.equals(loginURL)) {
+                System.out.println("Invalid Login");
+                return false;
+            } else {
+                System.out.println("Successfully logged in");
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
-    public static void retrieveAccountData(WebDriver driver, String accountNumber) {
+    public static boolean retrieveAccountData(WebDriver driver, String accountNumber) {
         /*
         * Retrieves Monthly Usage of an Account Number
+        * Pre req: must be logged into PPL Supplier portal - execute loginAccount prior to adding account
         */
-        // redirect to "Request Monthly Usage" webpage
-        driver.get("https://supplier.prod.pplweb.com/eusupplierportal/Secured/Retail/RequestMonthlyUsage.aspx");
+        try {
+            // redirect to "Request Monthly Usage" webpage
+            driver.get("https://supplier.prod.pplweb.com/eusupplierportal/Secured/Retail/RequestMonthlyUsage.aspx");
 
-        WebElement accountInput = driver.findElement(By.id("MainContent_macct_txtKyBa"));
-        WebElement submitAccount = driver.findElement(By.id("MainContent_macct_btnAddAccount"));
+            WebElement accountInput = driver.findElement(By.id("MainContent_macct_txtKyBa"));
+            WebElement submitAccount = driver.findElement(By.id("MainContent_macct_btnAddAccount"));
 
-        // enter account# and add account
-        accountInput.sendKeys(accountNumber);
-        submitAccount.click();
+            // enter account# and add account
+            accountInput.sendKeys(accountNumber);
+            submitAccount.click();
 
-        // get usage
-        WebElement getUsage = driver.findElement(By.id("MainContent_btnGetUsage"));
-        getUsage.click();
-
+            // get usage
+            WebElement getUsage = driver.findElement(By.id("MainContent_btnGetUsage"));
+            if(getUsage.isEnabled()) {
+                getUsage.click();
+                System.out.println("Successfully retrieved data");
+                return true;
+            } else {
+                System.out.println("Error adding account");
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
-    public static void downloadUsageFile(WebDriver driver) {
+    public static boolean downloadUsageFile(WebDriver driver) {
         /*
-        * downloads excel file containing account monthly usage data
-        * pre req: page must be displaying all usage data - execute retrieveAccountData prior to exporting data
+        * Downloads excel file containing account monthly usage data
+        * Pre req: page must be displaying all usage data - execute retrieveAccountData prior to exporting data
         */
 
-        WebElement exportToExcel = driver.findElement(By.id("MainContent_repMUData_btnExport_0"));
-        exportToExcel.click();
+        try {
+            WebElement exportToExcel = driver.findElement(By.id("MainContent_repMUData_btnExport_0"));
+            exportToExcel.click();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
 
     }
 
@@ -58,16 +90,18 @@ public class PPLTool {
         /*
         * FOR TESTING PURPOSES ONLY
         */
-        String loginUsername = "XXXX";
-        String loginPassword = "xxxx";
+        String loginUsername = "CBergerCE1";
+        String loginPassword = "ces10038!";
 
-        String accountNumber = "2087098013";
+        String accountNumber = "208708013";
 
         ChromeDriver driver = new ChromeDriver();
+        if(loginAccount(driver, loginUsername, loginPassword)) {
+            if(retrieveAccountData(driver, accountNumber)) {
+                downloadUsageFile(driver);
+            }
+        }
 
-        loginAccount(driver, loginUsername, loginPassword);
-        retrieveAccountData(driver, accountNumber);
-        downloadUsageFile(driver);
     }
 
 }
