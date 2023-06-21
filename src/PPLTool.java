@@ -19,6 +19,7 @@ public class PPLTool {
             WebElement loginButton = driver.findElement(By.id("MainContent_LoginCtrl_LoginButton"));
 
             // login
+            System.out.println("Logging in...");
             userNameInput.sendKeys(username);
             passwordInput.sendKeys(password);
             loginButton.click();
@@ -28,7 +29,7 @@ public class PPLTool {
                 System.out.println("Invalid Login");
                 return false;
             } else {
-                System.out.println("Successfully logged in");
+                System.out.println("Successfully logged in!");
                 return true;
             }
         } catch (Exception e) {
@@ -50,14 +51,16 @@ public class PPLTool {
             WebElement submitAccount = driver.findElement(By.id("MainContent_macct_btnAddAccount"));
 
             // enter account# and add account
+            System.out.println("Adding account...");
             accountInput.sendKeys(accountNumber);
             submitAccount.click();
 
             // get usage
+            System.out.println("Getting usage...");
             WebElement getUsage = driver.findElement(By.id("MainContent_btnGetUsage"));
             if(getUsage.isEnabled()) {
                 getUsage.click();
-                System.out.println("Successfully retrieved data");
+                System.out.println("Successfully retrieved data!");
                 return true;
             } else {
                 System.out.println("Error adding account");
@@ -75,9 +78,11 @@ public class PPLTool {
         * Pre req: page must be displaying all usage data - execute retrieveAccountData prior to exporting data
         */
 
+        System.out.println("Downloading file...");
         try {
             WebElement exportToExcel = driver.findElement(By.id("MainContent_repMUData_btnExport_0"));
             exportToExcel.click();
+            System.out.println("Successfully downloaded file!");
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
