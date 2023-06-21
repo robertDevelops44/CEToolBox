@@ -9,28 +9,30 @@ public class CEToolBox {
         /*
         * console prompt for PPL login information and login into PPL Supplier Portal
         */
-        String loginUsername;
-        String loginPassword;
         System.out.print("\nAll information entered will be deleted when the program exits\nEnter username: ");
-        loginUsername = reader.next();
+        String loginUsername = reader.next();
         System.out.print(("Enter password: "));
-        loginPassword = reader.next();
-        /*
-        char[] passwordArray = System.console().readPassword("Enter password: ");
-        loginPassword = new String(passwordArray);
-        */
+        String loginPassword = reader.next();
 
-        PPLTool.loginAccount(driver, loginUsername, loginPassword);
-
+        System.out.println("Logging in...\n...");
+        try {
+            PPLTool.loginAccount(driver, loginUsername, loginPassword);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
 
-        Scanner reader = new Scanner(System.in);
+        try {
+            Scanner reader = new Scanner(System.in);
 
-        WebDriver driver = new ChromeDriver();
+            WebDriver driver = new ChromeDriver();
 
-        loginPPL(reader, driver);
+            loginPPL(reader, driver);
 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
