@@ -34,6 +34,19 @@ public class CEToolBox {
         }
     }
 
+    public static void exportAccountData(Scanner reader, WebDriver driver) {
+        /*
+        * console prompt for downloading account usage xlsx file
+        */
+
+        System.out.print("Download account usage data as Excel file? (Y/N): ");
+        String userInput = (reader.next()).toLowerCase();
+
+        if (userInput.equals("y") || userInput.equals("yes")) {
+            PPLTool.downloadUsageFile(driver);
+        }
+    }
+
     public static void main(String[] args) {
 
         try {
@@ -43,6 +56,7 @@ public class CEToolBox {
 
             loginPPL(reader, driver);
             getAccountDataPPL(reader, driver);
+            exportAccountData(reader, driver);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
