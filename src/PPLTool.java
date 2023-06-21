@@ -95,10 +95,10 @@ public class PPLTool {
         /*
         * FOR TESTING PURPOSES ONLY
         */
-        String loginUsername = "CBergerCE1";
-        String loginPassword = "ces10038!";
+        String loginUsername = "XXXX";
+        String loginPassword = "XXXX";
 
-        String accountNumber = "208708013";
+        String accountNumber = "20708013";
 
         ChromeDriver driver = new ChromeDriver();
         if(loginAccount(driver, loginUsername, loginPassword)) {
