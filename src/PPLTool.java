@@ -2,8 +2,45 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class PPLTool {
+
+    private static String loginDataPath = "data/PPL_Login.csv";
+    private static String loginUsername;
+    private static String loginPassword;
+
+    public static void parseLoginCSV() throws FileNotFoundException {
+        /*
+         *  Parses "PPL_Login.csv" for account login information
+         */
+
+        // open csv file and read
+        FileReader fr = new FileReader(loginDataPath);
+        try (BufferedReader reader = new BufferedReader(fr)) {
+
+            reader.readLine();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                // record information
+                try {
+                    loginUsername = data[0];
+                    loginPassword = data[1];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Error with details, please check and try again");
+                }
+                System.out.println("Login Details Processed: " + loginUsername + " , " + loginPassword);
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
     public static boolean loginAccount(WebDriver driver, String username, String password) {
         /*
@@ -91,14 +128,14 @@ public class PPLTool {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         /*
         * FOR TESTING PURPOSES ONLY
         */
-        String loginUsername = "XXXX";
-        String loginPassword = "XXXX";
 
-        String accountNumber = "20708013";
+        parseLoginCSV();
+
+        String accountNumber = "0008101022";
 
         ChromeDriver driver = new ChromeDriver();
         if(loginAccount(driver, loginUsername, loginPassword)) {
