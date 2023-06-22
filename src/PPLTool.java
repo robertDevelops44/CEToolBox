@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class PPLTool {
 
-    private static String loginDataPath = "data/PPL_Login.csv";
+    private static final String loginDataPath = "data/PPL_Login.csv";
     private static String loginUsername;
     private static String loginPassword;
 
