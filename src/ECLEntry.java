@@ -1,31 +1,45 @@
 public class ECLEntry {
 
+    private String months;
     private String accountNumber;
     private String annualUsage;
     private String accountName;
     private String serviceAddress;
     private String serviceCity;
+    private String serviceState;
     private String serviceZipCode;
     private String billingAddress;
     private String billingCity;
+    private String billingState;
     private String billingZipCode;
     private String rateClass;
 
-    public ECLEntry(String accountNumber, String annualUsage, String accountName, String serviceAddress, String serviceCity, String serviceZipCode, String billingAddress, String billingCity, String billingZipCode, String rateClass) {
+    public ECLEntry(String months, String accountNumber, String annualUsage, String accountName, String serviceAddress, String serviceCity, String serviceState, String serviceZipCode, String billingAddress, String billingCity, String billingState, String billingZipCode, String rateClass) {
+        this.months = months;
         this.accountNumber = accountNumber;
         this.annualUsage = annualUsage;
         this.accountName = accountName;
         this.serviceAddress = serviceAddress;
         this.serviceCity = serviceCity;
+        this.serviceState = serviceState;
         this.serviceZipCode = serviceZipCode;
         this.billingAddress = billingAddress;
         this.billingCity = billingCity;
+        this.billingState = billingState;
         this.billingZipCode = billingZipCode;
         this.rateClass = rateClass;
     }
 
     public ECLEntry(){
 
+    }
+
+    public String getMonths() {
+        return months;
+    }
+
+    public void setMonths(String months) {
+        this.months = months;
     }
 
     public String getAccountNumber() {
@@ -68,6 +82,14 @@ public class ECLEntry {
         this.serviceCity = serviceCity;
     }
 
+    public String getServiceState() {
+        return serviceState;
+    }
+
+    public void setServiceState(String serviceState) {
+        this.serviceState = serviceState;
+    }
+
     public String getServiceZipCode() {
         return serviceZipCode;
     }
@@ -90,6 +112,14 @@ public class ECLEntry {
 
     public void setBillingCity(String billingCity) {
         this.billingCity = billingCity;
+    }
+
+    public String getBillingState() {
+        return billingState;
+    }
+
+    public void setBillingState(String billingState) {
+        this.billingState = billingState;
     }
 
     public String getBillingZipCode() {
