@@ -49,7 +49,7 @@ public class PPLTool {
         try {
             // direct to login page
             String loginURL = "https://supplier.prod.pplweb.com/eusupplierportal/login.aspx";
-            driver.get("https://supplier.prod.pplweb.com/eusupplierportal/login.aspx");
+            driver.get(loginURL);
 
             WebElement userNameInput = driver.findElement(By.id("MainContent_LoginCtrl_UserName"));
             WebElement passwordInput = driver.findElement(By.id("MainContent_LoginCtrl_Password"));
@@ -82,7 +82,8 @@ public class PPLTool {
         */
         try {
             // redirect to "Request Monthly Usage" webpage
-            driver.get("https://supplier.prod.pplweb.com/eusupplierportal/Secured/Retail/RequestMonthlyUsage.aspx");
+            String usageURL = "https://supplier.prod.pplweb.com/eusupplierportal/Secured/Retail/RequestMonthlyUsage.aspx";
+            driver.get(usageURL);
 
             WebElement accountInput = driver.findElement(By.id("MainContent_macct_txtKyBa"));
             WebElement submitAccount = driver.findElement(By.id("MainContent_macct_btnAddAccount"));
