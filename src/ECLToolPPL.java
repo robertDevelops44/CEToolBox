@@ -12,10 +12,10 @@ public class ECLToolPPL {
     private static final String accountInfoFilePath = "data/Account_Information_PPL.xlsx";
     private static Map<String, Integer> sheetColumns = new HashMap<>();
     private static Sheet currentSheet;
-    public static void parseInfoFile() {
+    public static void parseInfoFile(int row) {
 
         File file = new File(accountInfoFilePath);
-        int row = 1;
+
         try (var workbooks = WorkbookFactory.create(file)) {
             currentSheet = workbooks.getSheet("Sheet1");
             currentSheet.getRow(0).forEach(cell -> {
@@ -80,7 +80,7 @@ public class ECLToolPPL {
 
     public static void main(String[] args) {
 
-        parseInfoFile();
+        parseInfoFile(1);
 
     }
 }
