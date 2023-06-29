@@ -1,10 +1,15 @@
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
+import java.util.Scanner;
 
 
 public class ECLToolPPL {
@@ -12,7 +17,7 @@ public class ECLToolPPL {
     private static final String accountInfoFilePath = "data/Account_Information_PPL.xlsx";
     private static Map<String, Integer> sheetColumns = new HashMap<>();
     private static Sheet currentSheet;
-    public static void parseInfoFile(int row) {
+    public static ECLEntry parseInfoFile(int row) {
         row--;
         File file = new File(accountInfoFilePath);
         try (var workbooks = WorkbookFactory.create(file)) {
@@ -44,10 +49,13 @@ public class ECLToolPPL {
 
             ECLEntry entry = new ECLEntry(months, accountNumber, annualUsage, accountName, serviceAddress, serviceCity, serviceState, serviceZipCode, billingAddress, billingCity, billingState, billingZipCode, rateClass);
 
+            System.out.println("-----------------------");
             System.out.println(entry);
-
+            System.out.println("-----------------------");
+            return entry;
             } catch(Exception e) {
-            e.printStackTrace();
+                e.printStackTrace();
+                return null;
         }
     }
 
@@ -77,9 +85,48 @@ public class ECLToolPPL {
         return cellString;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
-        parseInfoFile(2);
+        WebDriver driver = new ChromeDriver();
+        Scanner reader = new Scanner(System.in);
+        System.out.println();
+        PPLTool.parseLoginCSV();
+        PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
+        int rowInput = -1;
+        while(rowInput != 0) {
+            System.out.print("Enter row number (0 to quit): ");
+            try {
+                rowInput = reader.nextInt();
+                if(rowInput == 0) {
+                    System.out.println("Goodbye!");
+                    driver.quit();
+                    reader.close();
+                    System.exit(0);
+                }
+                System.out.println("Processing...Please wait...");
+                ECLEntry entry = parseInfoFile(rowInput);
+                String accountNumber = entry.getAccountNumber();
+
+                if(PPLTool.retrieveAccountData(driver, accountNumber)) {
+                    PPLTool.downloadUsageFile(driver);
+                } else {
+                    PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
+                    if(PPLTool.retrieveAccountData(driver, accountNumber)) {
+                        PPLTool.downloadUsageFile(driver);
+                    }
+                }
+                System.out.println("Account processed! Current Row: " + rowInput);
+            } catch(InputMismatchException ime) {
+                System.out.println("!!! Invalid input, please enter a number !!!");
+            } catch (NullPointerException npe) {
+                System.out.println("!!! Invalid input, please enter a valid row number !!!");
+            }
+
+        }
+        System.out.println("Goodbye!");
+        driver.quit();
+        reader.close();
+        System.exit(0);
 
     }
 }
