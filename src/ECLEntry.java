@@ -140,7 +140,7 @@ public class ECLEntry {
 
     @Override
     public String toString() {
-        String formattedECL = String.format("Account#: %s\n%s kWh/year\nService Address: %s %s %s\nBilling Address: %s %s %s\n%s",accountNumber, annualUsage, accountName, serviceAddress, serviceCity, serviceZipCode, billingAddress, billingCity, billingZipCode, rateClass);
+        String formattedECL = String.format("%s\n\nAccount#: %s\n%s kWh/year\nService Address: %s %s %s %s\nBilling Address: %s %s %s %s\n%s",accountName,accountNumber, annualUsage, serviceAddress, serviceCity, serviceState, serviceZipCode, billingAddress, billingCity, billingState, billingZipCode, rateClass);
 
         return formattedECL;
     }
