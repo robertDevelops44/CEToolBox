@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,8 +11,8 @@ import java.io.IOException;
 public class PPLTool {
 
     private static final String loginDataPath = "data/PPL_Login.csv";
-    private static String loginUsername;
-    private static String loginPassword;
+    public static String loginUsername;
+    public static String loginPassword;
 
     public static void parseLoginCSV() throws FileNotFoundException {
         /*
@@ -85,6 +86,11 @@ public class PPLTool {
             String usageURL = "https://supplier.prod.pplweb.com/eusupplierportal/Secured/Retail/RequestMonthlyUsage.aspx";
             driver.get(usageURL);
 
+            if(!(driver.getCurrentUrl().equals(usageURL))) {
+                System.out.println("No user-logon");
+                return false;
+            }
+
             WebElement accountInput = driver.findElement(By.id("MainContent_macct_txtKyBa"));
             WebElement submitAccount = driver.findElement(By.id("MainContent_macct_btnAddAccount"));
 
@@ -122,8 +128,8 @@ public class PPLTool {
             exportToExcel.click();
             System.out.println("Successfully downloaded file!");
             return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (NoSuchElementException e) {
+            System.out.println("No data available for account");
             return false;
         }
 
@@ -136,10 +142,11 @@ public class PPLTool {
 
         parseLoginCSV();
 
-        String accountNumber = "0008101022";
+        String accountNumber = "4089119026";
 
         ChromeDriver driver = new ChromeDriver();
         if(loginAccount(driver, loginUsername, loginPassword)) {
+
             if(retrieveAccountData(driver, accountNumber)) {
                 downloadUsageFile(driver);
             }
