@@ -49,9 +49,6 @@ public class ECLToolPPL {
 
             ECLEntry entry = new ECLEntry(months, accountNumber, annualUsage, accountName, serviceAddress, serviceCity, serviceState, serviceZipCode, billingAddress, billingCity, billingState, billingZipCode, rateClass);
 
-            System.out.println("-----------------------");
-            System.out.println(entry);
-            System.out.println("-----------------------");
             return entry;
             } catch(Exception e) {
                 e.printStackTrace();
@@ -115,6 +112,9 @@ public class ECLToolPPL {
                         PPLTool.downloadUsageFile(driver);
                     }
                 }
+                System.out.println("-----------------------");
+                System.out.println(entry);
+                System.out.println("-----------------------");
                 System.out.println("Account processed! Current Row: " + rowInput);
             } catch(InputMismatchException ime) {
                 System.out.println("!!! Invalid input, please enter a number !!!");
