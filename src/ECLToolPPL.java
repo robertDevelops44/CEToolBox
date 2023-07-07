@@ -3,6 +3,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -83,8 +84,11 @@ public class ECLToolPPL {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--window-size=1920, 1080");
+        options.addArguments("--start-maximized");
+        options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
         Scanner reader = new Scanner(System.in);
         System.out.println();
         PPLTool.parseLoginCSV();
