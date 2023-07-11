@@ -1,3 +1,5 @@
+package main.java.com.capitalenergyservices;
+
 public class ECLEntry {
 
     private String months;
@@ -28,10 +30,6 @@ public class ECLEntry {
         this.billingState = billingState;
         this.billingZipCode = billingZipCode;
         this.rateClass = rateClass;
-    }
-
-    public ECLEntry(){
-
     }
 
     public String getMonths() {
