@@ -19,6 +19,9 @@ public class ECLToolPPL {
     private static Map<String, Integer> sheetColumns = new HashMap<>();
     private static Sheet currentSheet;
     public static ECLEntry parseInfoFile(int row) {
+        /*
+        * parses entry from excel file on the inputted row number
+        */
         row--;
         File file = new File(accountInfoFilePath);
         try (var workbooks = WorkbookFactory.create(file)) {
@@ -58,11 +61,17 @@ public class ECLToolPPL {
     }
 
     public static String getCellData(String column, int row) {
+        /*
+        * retrieves data from an excel sheet cell
+        */
         var dataRow = currentSheet.getRow(row);
         return getCellDataAsString(dataRow.getCell(sheetColumns.get(column)));
     }
 
     public static String getCellDataAsString(Cell cell) {
+        /*
+        * parses/converts cell data into string format
+        */
         String cellString;
         try {
             switch (cell.getCellType()) {
