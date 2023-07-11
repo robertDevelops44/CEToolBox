@@ -84,11 +84,14 @@ public class ECLToolPPL {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
+/*
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1920, 1080");
         options.addArguments("--start-maximized");
         options.addArguments("--headless");
         WebDriver driver = new ChromeDriver(options);
+*/
+        WebDriver driver = new ChromeDriver();    // comment out and replace with comment block above for headless browser
         Scanner reader = new Scanner(System.in);
         System.out.println();
         PPLTool.parseLoginCSV();
