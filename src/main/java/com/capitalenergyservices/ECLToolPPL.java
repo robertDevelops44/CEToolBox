@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class ECLToolPPL {
 
     private static final String accountInfoFilePath = "data/Account_Information_PPL.xlsx";
-    private static Map<String, Integer> sheetColumns = new HashMap<>();
+    private static final Map<String, Integer> sheetColumns = new HashMap<>();
     private static Sheet currentSheet;
     public static ECLEntry parseInfoFile(int row) {
         /*
@@ -28,9 +28,7 @@ public class ECLToolPPL {
         File file = new File(accountInfoFilePath);
         try (var workbooks = WorkbookFactory.create(file)) {
             currentSheet = workbooks.getSheet("Sheet1");
-            currentSheet.getRow(0).forEach(cell -> {
-                sheetColumns.put(cell.getStringCellValue(), cell.getColumnIndex());
-            } );
+            currentSheet.getRow(0).forEach(cell -> sheetColumns.put(cell.getStringCellValue(), cell.getColumnIndex()));
 
             String months = getCellData("Months", row);
             String accountNumber = getCellData("ACCOUNT NO.", row);
@@ -53,9 +51,7 @@ public class ECLToolPPL {
             serviceAddress += " " + serviceAddress2;
             billingAddress += " " + billingAddress2;
 
-            ECLEntry entry = new ECLEntry(months, accountNumber, annualUsage, accountName, serviceAddress, serviceCity, serviceState, serviceZipCode, billingAddress, billingCity, billingState, billingZipCode, rateClass);
-
-            return entry;
+            return new ECLEntry(months, accountNumber, annualUsage, accountName, serviceAddress, serviceCity, serviceState, serviceZipCode, billingAddress, billingCity, billingState, billingZipCode, rateClass);
             } catch(Exception e) {
                 e.printStackTrace();
                 return null;
@@ -87,7 +83,7 @@ public class ECLToolPPL {
                     cellString = "";
                     break;
             }
-            ;
+
         } catch (NullPointerException e) {
             cellString = "";
         }
