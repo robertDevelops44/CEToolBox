@@ -1,4 +1,4 @@
-package main.java.com.capitalenergyservices;
+package com.capitalenergyservices;
 
 public class ECLEntry {
 

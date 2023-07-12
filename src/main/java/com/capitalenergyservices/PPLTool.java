@@ -1,4 +1,4 @@
-package main.java.com.capitalenergyservices;
+package com.capitalenergyservices;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;

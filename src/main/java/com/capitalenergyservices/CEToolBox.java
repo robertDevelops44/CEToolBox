@@ -1,4 +1,4 @@
-package main.java.com.capitalenergyservices;
+package com.capitalenergyservices;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
