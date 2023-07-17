@@ -90,7 +90,7 @@ public class ECLToolPPL {
         return cellString;
     }
 
-    public static void executeProgram() {
+    public static void executeProgram(Scanner reader) {
         /*
         * runs main program for ECL and PPL Portal tools with Command-Line-Interface
         */
@@ -103,7 +103,6 @@ public class ECLToolPPL {
         WebDriver driver = new ChromeDriver(options);
         */
         WebDriver driver = new ChromeDriver();    // comment out and replace with comment block above for headless browser
-        Scanner reader = new Scanner(System.in);
         System.out.println();
         PPLTool.parseLoginCSV();
         PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
@@ -141,9 +140,8 @@ public class ECLToolPPL {
             }
 
         }
-        System.out.println("Goodbye!");
+        System.out.println("Exiting ECL Tool...");
         driver.quit();
-        reader.close();
     }
 
 
