@@ -102,6 +102,7 @@ public class ECLToolPPL {
         options.addArguments("--headless");
         WebDriver driver = new ChromeDriver(options);
         */
+        System.out.println("Loading Tool...");
         WebDriver driver = new ChromeDriver();    // comment out and replace with comment block above for headless browser
         System.out.println();
         PPLTool.parseLoginCSV();
