@@ -13,7 +13,7 @@ public class Calculator {
         return (ourRate - supplierRate) * ((100-utilityTaxPercentage)/100);
     }
 
-    public static void executeProgram(Scanner reader) {
+    public static void executeFeeProgram(Scanner reader) {
         System.out.println("Loading margin calculator...");
         double ourRate;
         double supplierRate;
@@ -35,7 +35,7 @@ public class Calculator {
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
-        executeProgram(reader);
+        executeFeeProgram(reader);
         reader.close();
         System.exit(0);
     }
