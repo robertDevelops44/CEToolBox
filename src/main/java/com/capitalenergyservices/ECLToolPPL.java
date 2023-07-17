@@ -90,7 +90,7 @@ public class ECLToolPPL {
         return cellString;
     }
 
-    public static void executeProgram(Scanner reader) {
+    public static void executeProgram(Scanner reader) throws FileNotFoundException {
         /*
         * runs main program for ECL and PPL Portal tools with Command-Line-Interface
         */
@@ -147,54 +147,9 @@ public class ECLToolPPL {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-/*
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--window-size=1920, 1080");
-        options.addArguments("--start-maximized");
-        options.addArguments("--headless");
-        WebDriver driver = new ChromeDriver(options);
-*/
-        WebDriver driver = new ChromeDriver();    // comment out and replace with comment block above for headless browser
+
         Scanner reader = new Scanner(System.in);
-        System.out.println();
-        PPLTool.parseLoginCSV();
-        PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
-        int rowInput = -1;
-        while(rowInput != 0) {
-            System.out.print("Enter row number (0 to quit): ");
-            try {
-                rowInput = reader.nextInt();
-                if(rowInput == 0) {
-                    System.out.println("Goodbye!");
-                    driver.quit();
-                    reader.close();
-                    System.exit(0);
-                }
-                System.out.println("Processing...Please wait...");
-                ECLEntry entry = parseInfoFile(rowInput);
-                String accountNumber = entry.getAccountNumber();
-
-                if(PPLTool.retrieveAccountData(driver, accountNumber)) {
-                    PPLTool.downloadUsageFile(driver);
-                } else {
-                    PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
-                    if(PPLTool.retrieveAccountData(driver, accountNumber)) {
-                        PPLTool.downloadUsageFile(driver);
-                    }
-                }
-                System.out.println("-----------------------");
-                System.out.println(entry);
-                System.out.println("-----------------------");
-                System.out.println("Account processed! Current Row: " + rowInput);
-            } catch(InputMismatchException ime) {
-                System.out.println("!!! Invalid input, please enter a number !!!");
-            } catch (NullPointerException npe) {
-                System.out.println("!!! Invalid input, please enter a valid row number !!!");
-            }
-
-        }
-        System.out.println("Goodbye!");
-        driver.quit();
+        executeProgram(reader);
         reader.close();
         System.exit(0);
 
