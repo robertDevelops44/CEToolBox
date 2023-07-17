@@ -115,8 +115,7 @@ public class ECLToolPPL {
                 if(rowInput == 0) {
                     System.out.println("Goodbye!");
                     driver.quit();
-                    reader.close();
-                    System.exit(0);
+                    return;
                 }
                 System.out.println("Processing...Please wait...");
                 ECLEntry entry = parseInfoFile(rowInput);
