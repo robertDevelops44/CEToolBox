@@ -1,3 +1,7 @@
+package com.capitalenergyservices;
+
+import java.util.Scanner;
+
 public class Calculator {
 
     public static double calculateFee(double ourRate, double supplierRate, double utilityTaxPercentage) {
@@ -6,7 +10,34 @@ public class Calculator {
         * ourRate - rate providing
         * supplierRate - rate given by supplier (w/tax)
         * utilityTaxPercentage - the utility tax percentage of the state */
-        return (ourRate - supplierRate) * ((100-utilityTax)/100)
+        return (ourRate - supplierRate) * ((100-utilityTaxPercentage)/100);
+    }
+
+    public static void executeProgram(Scanner reader) {
+        System.out.println("Loading margin calculator...");
+        double ourRate = 0;
+        double supplierRate = 0;
+        double utilityTaxPercentage = 0;
+        try {
+            System.out.print("Please enter your rate: ");
+            ourRate = reader.nextDouble();
+            System.out.print("Please enter the supplier's rate(w/tax): ");
+            supplierRate = reader.nextDouble();
+            System.out.println("Please enter the state's utility tax percentage: ");
+            utilityTaxPercentage = reader.nextDouble();
+        } catch(Exception e) {
+            System.out.print("Error! Invalid input! Please try again!");
+            return;
+        }
+        double fee = calculateFee(ourRate,supplierRate,utilityTaxPercentage);
+        System.out.printf(String.format("The broker fee is: %.6f",fee));
+    }
+
+    public static void main(String[] args) {
+        Scanner reader = new Scanner(System.in);
+        executeProgram(reader);
+        reader.close();
+        System.exit(0);
     }
 
 }
