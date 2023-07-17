@@ -15,15 +15,15 @@ public class Calculator {
 
     public static void executeProgram(Scanner reader) {
         System.out.println("Loading margin calculator...");
-        double ourRate = 0;
-        double supplierRate = 0;
-        double utilityTaxPercentage = 0;
+        double ourRate;
+        double supplierRate;
+        double utilityTaxPercentage;
         try {
             System.out.print("Please enter your rate: ");
             ourRate = reader.nextDouble();
             System.out.print("Please enter the supplier's rate(w/tax): ");
             supplierRate = reader.nextDouble();
-            System.out.println("Please enter the state's utility tax percentage: ");
+            System.out.print("Please enter the state's utility tax percentage: ");
             utilityTaxPercentage = reader.nextDouble();
         } catch(Exception e) {
             System.out.print("Error! Invalid input! Please try again!");
