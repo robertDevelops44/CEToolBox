@@ -49,16 +49,40 @@ public class CEToolBox {
         }
     }
 
+    publc static void greet() {
+        System.out.println("...Welcome to CEToolBox v1.0...");
+        printHelp();
+    }
+
+
+    public static void printHelp() {
+        System.out.println("1: ECL PPL Tool\n" +
+                            "2: SFE Margin Calculator\n" +
+                                "q: Quit" +
+                                    "h: Show all commands");
+    }
+
+
     public static void main(String[] args) {
 
         try {
             Scanner reader = new Scanner(System.in);
 
-            WebDriver driver = new ChromeDriver();
+            greet();
+            String userInput = "";
+            while(!((userInput.toLowerCase()).equals("q"))) {
+                System.out.println("Enter a command (h for help): ");
+                try {
+                    userInput = (reader.nextLine()).toLowerCase();
 
-            loginPPL(reader, driver);
-            getAccountDataPPL(reader, driver);
-            exportAccountData(reader, driver);
+                    if(userInput.equals("1")) {
+                        ECLToolPPL.executeProgram();
+                    } else if(userInput.equals("2")) {
+
+                    }
+                }
+            }
+
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
