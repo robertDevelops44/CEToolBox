@@ -20,9 +20,10 @@ public class ECLToolPPL {
     private static final String accountInfoFilePath = "data/Account_Information_PPL.xlsx";
     private static final Map<String, Integer> sheetColumns = new HashMap<>();
     private static Sheet currentSheet;
+
     public static ECLEntry parseInfoFile(int row) {
         /*
-        * parses entry from excel file on the inputted row number
+        * parses entry from Excel file on the inputted row number
         */
         row--;
         File file = new File(accountInfoFilePath);
@@ -90,6 +91,17 @@ public class ECLToolPPL {
         return cellString;
     }
 
+    public static int getExcelRows() {
+        File file = new File(accountInfoFilePath);
+        try (var workbooks = WorkbookFactory.create(file)) {
+            currentSheet = workbooks.getSheet("Sheet1");
+            return currentSheet.getPhysicalNumberOfRows();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public static void executeProgram(Scanner reader) throws FileNotFoundException {
         /*
         * runs main program for ECL and PPL Portal tools with Command-Line-Interface
@@ -104,7 +116,9 @@ public class ECLToolPPL {
         */
         System.out.println("Loading Tool...");
         WebDriver driver = new ChromeDriver();    // comment out and replace with comment block above for headless browser
+        System.out.println("Please wait a moment...");
         System.out.println();
+        int totalRows = getExcelRows();
         PPLTool.parseLoginCSV();
         PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
         int rowInput = -1;
@@ -113,28 +127,36 @@ public class ECLToolPPL {
             try {
                 rowInput = reader.nextInt();
                 if(rowInput == 0) {
+                    System.out.println("Exiting ECL Tool...");
                     System.out.println("Goodbye!");
                     driver.quit();
+                    reader.nextLine();
                     return;
-                }
-                System.out.println("Processing...Please wait...");
-                ECLEntry entry = parseInfoFile(rowInput);
-                String accountNumber = entry.getAccountNumber();
-
-                if(PPLTool.retrieveAccountData(driver, accountNumber)) {
-                    PPLTool.downloadUsageFile(driver);
+                } else if(rowInput == 1) {
+                    System.out.println("Cannot select header row!");
+                } else if(rowInput > totalRows) {
+                    System.out.println("Out of index, please enter a valid row number !!!");
                 } else {
-                    PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
-                    if(PPLTool.retrieveAccountData(driver, accountNumber)) {
+                    System.out.println("Processing...Please wait...");
+                    ECLEntry entry = parseInfoFile(rowInput);
+                    String accountNumber = entry.getAccountNumber();
+
+                    if (PPLTool.retrieveAccountData(driver, accountNumber)) {
                         PPLTool.downloadUsageFile(driver);
+                    } else {
+                        PPLTool.loginAccount(driver, PPLTool.loginUsername, PPLTool.loginPassword);
+                        if (PPLTool.retrieveAccountData(driver, accountNumber)) {
+                            PPLTool.downloadUsageFile(driver);
+                        }
                     }
+                    System.out.println("-----------------------");
+                    System.out.println(entry);
+                    System.out.println("-----------------------");
+                    System.out.println("Account processed! Current Row: " + rowInput);
                 }
-                System.out.println("-----------------------");
-                System.out.println(entry);
-                System.out.println("-----------------------");
-                System.out.println("Account processed! Current Row: " + rowInput);
             } catch(InputMismatchException ime) {
                 System.out.println("!!! Invalid input, please enter a number !!!");
+                reader.nextLine();
             } catch (NullPointerException npe) {
                 System.out.println("!!! Invalid input, please enter a valid row number !!!");
             }
@@ -142,6 +164,7 @@ public class ECLToolPPL {
         }
         System.out.println("Exiting ECL Tool...");
         driver.quit();
+        reader.nextLine();
     }
 
 
