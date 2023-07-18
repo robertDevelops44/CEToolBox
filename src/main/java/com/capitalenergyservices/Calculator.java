@@ -14,7 +14,7 @@ public class Calculator {
     }
 
     public static void executeFeeProgram(Scanner reader) {
-        System.out.println("Loading margin calculator...");
+        System.out.println("Loading margin calculator...\n");
         double ourRate;
         double supplierRate;
         double utilityTaxPercentage;

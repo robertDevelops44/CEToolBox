@@ -84,7 +84,7 @@ public class CEToolBox {
             String userInput = "";
             label:
             while(!(userInput.equalsIgnoreCase("q"))) {
-                System.out.print("Enter a command (h for help): ");
+                System.out.print("\nEnter a command (h for help): ");
                 try {
                     userInput = (reader.nextLine()).toLowerCase();
                     switch (userInput) {
