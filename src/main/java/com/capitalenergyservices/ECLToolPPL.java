@@ -97,7 +97,7 @@ public class ECLToolPPL {
             currentSheet = workbooks.getSheet("Sheet1");
             return currentSheet.getPhysicalNumberOfRows();
         } catch(Exception e) {
-            e.printStackTrace();
+            System.out.println("Please close the ECL Excel file before launching ECL PPL Tool. It is advised to make a copy to view.");
             return 0;
         }
     }
@@ -119,6 +119,11 @@ public class ECLToolPPL {
         System.out.println("Please wait a moment...");
         System.out.println();
         int totalRows = getExcelRows();
+        if(totalRows == 0) {
+            driver.quit();
+            return;
+        }
+        System.out.println("Total number of rows: " + totalRows);
         PPLTool.parseLoginCSV();
         boolean loginStatus = PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
         if(!loginStatus) {
