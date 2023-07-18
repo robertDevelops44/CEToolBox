@@ -36,7 +36,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.capitalenergyservices.ECLToolPPL</mainClass>
+                            <mainClass>com.capitalenergyservices.CEToolBox</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
