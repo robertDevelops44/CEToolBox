@@ -51,7 +51,18 @@ public class CEToolBox {
     }
 
     public static void greet() {
-        System.out.println("...Welcome to CEToolBox v1.0...");
+        System.out.println("\n" +
+                " _____  _____  _____                _ ______                       __      _____ \n" +
+                "/  __ \\|  ___||_   _|              | || ___ \\                     /  |    |  _  |\n" +
+                "| /  \\/| |__    | |    ___    ___  | || |_/ /  ___  __  __ __   __`| |    | |/' |\n" +
+                "| |    |  __|   | |   / _ \\  / _ \\ | || ___ \\ / _ \\ \\ \\/ / \\ \\ / / | |    |  /| |\n" +
+                "| \\__/\\| |___   | |  | (_) || (_) || || |_/ /| (_) | >  <   \\ V / _| |_ _ \\ |_/ /\n" +
+                " \\____/\\____/   \\_/   \\___/  \\___/ |_|\\____/  \\___/ /_/\\_\\   \\_/  \\___/(_) \\___/ \n" +
+                "                                                                                 \n" +
+                "                                                                                 \n");
+        System.out.println("---------------------------------------");
+        System.out.println("\nWelcome to CEToolBox v1.0!");
+        System.out.println("...\n");
         printHelp();
     }
 
@@ -100,7 +111,7 @@ public class CEToolBox {
             }
 
             reader.close();
-            System.out.println("Thank you for using CEToolBox!");
+            System.out.println("\nThank you for using CEToolBox!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
