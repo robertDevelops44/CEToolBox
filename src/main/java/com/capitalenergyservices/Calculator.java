@@ -32,6 +32,7 @@ public class Calculator {
         double fee = calculateFee(ourRate,supplierRate,utilityTaxPercentage);
         System.out.printf(String.format("The broker fee is: %.6f",fee));
         System.out.println();
+        reader.nextLine();
     }
 
     public static void main(String[] args) {
