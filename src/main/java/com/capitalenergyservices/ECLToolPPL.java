@@ -120,7 +120,11 @@ public class ECLToolPPL {
         System.out.println();
         int totalRows = getExcelRows();
         PPLTool.parseLoginCSV();
-        PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
+        boolean loginStatus = PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
+        if(!loginStatus) {
+            System.out.println("Please check and correct login details in PPL_Login.csv");
+            return;
+        }
         int rowInput = -1;
         while(rowInput != 0) {
             System.out.print("Enter row number (0 to quit): ");
