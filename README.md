@@ -1,4 +1,4 @@
-# CEToolBox
+# CEToolBox v1.1
 
 CEToolBox is a program featuring tools made for Capital Energy Services
 >#### PPL ECL Tool
@@ -18,7 +18,7 @@ CEToolBox is a program featuring tools made for Capital Energy Services
 
 ## Installation
 
-Extract _CEToolBox-v1.0.zip_ and its contents
+Extract _CEToolBox-v1.1.zip_ and its contents
 
 >Manually through File Explorer or archiver software (7zip, WinRAR, etc.)
 
@@ -30,6 +30,7 @@ Extract _CEToolBox-v1.0.zip_ and its contents
     - If using Excel: cells A2, B2  →  username, password
     - If using text editor: 2nd line  →  username, password
 - Populate _ECL_PPL.xlsx_ with entries starting from the 2nd row
+- Make sure _ECL_PPL.xlsx_ is closed when running the program
 >#### SFE Margin Calculator
 - No prerequisites
 
