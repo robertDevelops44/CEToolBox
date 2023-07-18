@@ -123,6 +123,7 @@ public class ECLToolPPL {
         boolean loginStatus = PPLTool.loginAccount(driver,PPLTool.loginUsername, PPLTool.loginPassword);
         if(!loginStatus) {
             System.out.println("Please check and correct login details in PPL_Login.csv");
+            driver.quit();
             return;
         }
         int rowInput = -1;
