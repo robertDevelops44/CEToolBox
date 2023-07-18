@@ -71,20 +71,26 @@ public class CEToolBox {
 
             greet();
             String userInput = "";
-            while(!((userInput.toLowerCase()).equals("q"))) {
+            label:
+            while(!(userInput.equalsIgnoreCase("q"))) {
                 System.out.print("Enter a command (h for help): ");
                 try {
                     userInput = (reader.nextLine()).toLowerCase();
-                    if(userInput.equals("1")) {
-                        ECLToolPPL.executeProgram(reader);
-                    } else if(userInput.equals("2")) {
-                        Calculator.executeFeeProgram(reader);
-                    } else if(userInput.equals("h")) {
-                        printHelp();
-                    } else if(userInput.equals("q")) {
-                        break;
-                    } else {
-                        System.out.println("Invalid command! (h for help)");
+                    switch (userInput) {
+                        case "1":
+                            ECLToolPPL.executeProgram(reader);
+                            break;
+                        case "2":
+                            Calculator.executeFeeProgram(reader);
+                            break;
+                        case "h":
+                            printHelp();
+                            break;
+                        case "q":
+                            break label;
+                        default:
+                            System.out.println("Invalid command! (h for help)");
+                            break;
                     }
                 } catch (NoSuchElementException nsee) {
                     System.out.println("Invalid command! (h for help)");
