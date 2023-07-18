@@ -1,5 +1,6 @@
 package com.capitalenergyservices;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.Scanner;
@@ -49,7 +50,7 @@ public class CEToolBox {
         }
     }
 
-    publc static void greet() {
+    public static void greet() {
         System.out.println("...Welcome to CEToolBox v1.0...");
         printHelp();
     }
@@ -58,7 +59,7 @@ public class CEToolBox {
     public static void printHelp() {
         System.out.println("1: ECL PPL Tool\n" +
                             "2: SFE Margin Calculator\n" +
-                                "q: Quit" +
+                                "q: Quit\n" +
                                     "h: Show all commands");
     }
 
@@ -71,21 +72,33 @@ public class CEToolBox {
             greet();
             String userInput = "";
             while(!((userInput.toLowerCase()).equals("q"))) {
-                System.out.println("Enter a command (h for help): ");
+                System.out.print("Enter a command (h for help): ");
                 try {
                     userInput = (reader.nextLine()).toLowerCase();
-
                     if(userInput.equals("1")) {
-                        ECLToolPPL.executeProgram();
+                        ECLToolPPL.executeProgram(reader);
                     } else if(userInput.equals("2")) {
-
+                        Calculator.executeFeeProgram(reader);
+                    } else if(userInput.equals("h")) {
+                        printHelp();
+                    } else if(userInput.equals("q")) {
+                        break;
+                    } else {
+                        System.out.println("Invalid command! (h for help)");
                     }
+                } catch (NoSuchElementException nsee) {
+                    System.out.println("Invalid command! (h for help)");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
-
+            reader.close();
+            System.out.println("Thank you for using CEToolBox!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        System.exit(0);
+
     }
 }
