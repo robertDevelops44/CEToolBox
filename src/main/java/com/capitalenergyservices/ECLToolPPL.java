@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 public class ECLToolPPL {
 
-    private static final String accountInfoFilePath = "data/Account_Information_PPL.xlsx";
+    private static final String accountInfoFilePath = "data/ECL_PPL.xlsx";
     private static final Map<String, Integer> sheetColumns = new HashMap<>();
     private static Sheet currentSheet;
 
