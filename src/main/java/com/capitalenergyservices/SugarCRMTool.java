@@ -1,3 +1,5 @@
+package com.capitalenergyservices;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public class SugarCRMTool {
 
@@ -45,13 +48,27 @@ public class SugarCRMTool {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        String loginUsername = "XXXX";
-        String loginPassword = "XXXXX";
+        String loginUsername = "rhuang";
+        String loginPassword = "area51again";
 
         ChromeDriver driver = new ChromeDriver();
         loginAccount(driver, loginUsername, loginPassword);
+        driver.get("https://capenergy.sugarondemand.com/#Leads");
+        TimeUnit.SECONDS.sleep(7);
+        TimeUnit.SECONDS.sleep(2);
+        WebElement pageCountButton = driver.findElement(By.name("page-count"));
+        pageCountButton.click();
+        while(true) {
+            WebElement selectAllButton = driver.findElement(By.className("toggle-all"));
+
+            selectAllButton.click();
+            WebElement nextPageButton = driver.findElement(By.cssSelector("#content > div > div > div.main-pane.span8.flex.flex-column > div.pipeline-refresh-btn.flex.flex-column.h-full > div.main-content > div.paginated-flex-list > div.flex-table-pagination > div > div > button.btn.paginate-next"));
+
+            nextPageButton.click();
+            TimeUnit.SECONDS.sleep(3);
+        }
     }
 
 }
