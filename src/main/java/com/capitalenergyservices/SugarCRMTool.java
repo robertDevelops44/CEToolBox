@@ -50,8 +50,8 @@ public class SugarCRMTool {
 
     public static void main(String[] args) throws InterruptedException {
 
-        String loginUsername = "rhuang";
-        String loginPassword = "area51again";
+        String loginUsername = "xxx";
+        String loginPassword = "xxx";
 
         ChromeDriver driver = new ChromeDriver();
         loginAccount(driver, loginUsername, loginPassword);
